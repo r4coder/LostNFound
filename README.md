@@ -3,15 +3,6 @@
 
 A full-stack MERN web application that helps students and faculty report, search, and recover lost items within the campus. This system enables users to securely log in, upload lost or found items with images, filter by categories or status, and track the status of their belongings.
 
----
-
-
----
-
-
-
----
-
 ## 🧩 Key Features
 
 - 🔐 **Firebase Authentication**: Secure login and signup
