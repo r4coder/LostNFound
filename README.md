@@ -5,21 +5,10 @@ A full-stack MERN web application that helps students and faculty report, search
 
 ---
 
-## 🌟 Live Demo
-
-🚀 [View Live Application](https://your-live-demo-link.com)  
-📂 [Backend Repository](https://github.com/yourusername/lost-and-found-backend)  
-💻 [Frontend Repository](https://github.com/yourusername/lost-and-found-frontend)
 
 ---
 
-## 🖼️ Preview
 
-> Add screenshots or GIFs of:
-- 📸 Upload Item Modal  
-- 📄 Item Cards Grid View  
-- 🔍 Filter & Search Functionality  
-- 🔐 Login / Signup Pages
 
 ---
 
