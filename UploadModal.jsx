@@ -33,9 +33,14 @@ const UploadModal = ({ onClose, onUploadSuccess }) => {
     formData.append("category", category);
 
     try {
-      await axios.post("http://localhost:5000/api/items", formData);
+      await axios.post("http://localhost:5000/api/items", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      toast.success("Uploaded successfully");
       onUploadSuccess();
+      onClose();
     } catch (err) {
+      console.error("Upload error:", err.response?.data || err.message);
       toast.error("Upload failed");
     }
   };
@@ -100,7 +105,9 @@ const UploadModal = ({ onClose, onUploadSuccess }) => {
         >
           <input {...getInputProps()} />
           <FaCloudUploadAlt size={40} className="mx-auto mb-2 text-blue-600" />
-          <p className="text-sm">{file ? file.name : "Drag and drop an image or click to upload"}</p>
+          <p className="text-sm">
+            {file ? file.name : "Drag and drop an image or click to upload"}
+          </p>
         </div>
 
         <div className="flex justify-end gap-2">
