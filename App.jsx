@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { FaPlus } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import UploadModal from "./components/UploadModal";
 import ImageZoomModal from "./components/ImageZoomModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Navbar from "./components/Navbar";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -14,10 +15,11 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All");
 
+  const { user } = useAuth();
+
   const fetchItems = async () => {
     try {
       const res = await axios.get("http://localhost:5000/api/items");
-      console.log("Fetched items:", res.data); // debug
       setItems(res.data);
     } catch (err) {
       toast.error("Failed to fetch items");
@@ -61,9 +63,10 @@ function App() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 p-6">
       <div className="max-w-5xl mx-auto">
-        <header className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-          <h1 className="text-3xl font-bold text-blue-800">🎒 Lost & Found Portal</h1>
-          <div className="flex gap-3 flex-wrap items-center">
+        <Navbar onPostClick={() => setShowModal(true)} />
+
+        {user && (
+          <div className="flex gap-3 flex-wrap items-center mt-4 mb-6">
             <input
               type="text"
               placeholder="Search items..."
@@ -83,20 +86,13 @@ function App() {
               <option value="Card">ID Card</option>
             </select>
             <button
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded flex items-center gap-2"
-              onClick={() => setShowModal(true)}
-            >
-              <FaPlus />
-              Post Item
-            </button>
-            <button
               className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
               onClick={handleClearItems}
             >
               🗑️ Clear All
             </button>
           </div>
-        </header>
+        )}
 
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
