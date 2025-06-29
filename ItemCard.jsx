@@ -1,39 +1,30 @@
 import React from "react";
 
-const ItemCard = ({ item, onMarkAsFound, onImageClick }) => {
+const ItemCard = ({ item, onClick }) => {
+  const imageSrc = `http://localhost:5000${item.imagePath || item.image}`;
+
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105">
+    <div
+      className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-300 cursor-pointer"
+      onClick={() => onClick(imageSrc)}
+    >
       <img
-        src={`http://localhost:5000/${item.image}`}
+        src={imageSrc}
         alt={item.title}
-        className="w-full h-48 object-cover cursor-pointer"
-        onClick={() => onImageClick(`http://localhost:5000/${item.image}`)}
+        className="w-full h-48 object-cover"
       />
-
-      <div className="p-4">
-        <h3 className="text-xl font-semibold text-gray-800">{item.title}</h3>
-        <p className="text-gray-600 mt-1">{item.description}</p>
-
-        <div className="mt-4 flex justify-between items-center">
-          <span
-            className={`px-2 py-1 text-xs font-bold rounded ${
-              item.status === "found"
-                ? "bg-green-100 text-green-800"
-                : "bg-yellow-100 text-yellow-800"
-            }`}
-          >
-            {item.status.toUpperCase()}
-          </span>
-
-          {item.status === "lost" && (
-            <button
-              onClick={() => onMarkAsFound(item._id)}
-              className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 text-sm"
-            >
-              Mark as Found
-            </button>
-          )}
-        </div>
+      <div className="p-4 space-y-1">
+        <span
+          className={`text-xs inline-block px-2 py-1 rounded-full ${
+            item.status === "Found"
+              ? "bg-green-100 text-green-600"
+              : "bg-red-100 text-red-600"
+          }`}
+        >
+          {item.status || "Lost"}
+        </span>
+        <h3 className="text-lg font-semibold">{item.title}</h3>
+        <p className="text-gray-600 text-sm">{item.description}</p>
       </div>
     </div>
   );
